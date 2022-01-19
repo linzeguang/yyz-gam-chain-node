@@ -86,3 +86,18 @@ export const WalletButton = styled.button`
     }
   }
 `;
+
+export const FooterWrapper = styled.footer`
+  height: 60px;
+  background-color: #212121;
+`;
+
+export const FooterText = styled.div`
+  line-height: 60px;
+  font-size: 16px;
+  color: #fff;
+`;
+
+export const Main = styled.section`
+  min-height: calc(100vh - 120px);
+`;
