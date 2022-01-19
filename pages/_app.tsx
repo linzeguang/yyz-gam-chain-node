@@ -1,8 +1,20 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import React from "react";
+import type { AppProps } from "next/app";
+import ResetCSS from "../styles/ResetCSS";
+import Layout from "../components/Layout";
+import Providers from "./Providers";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+  return (
+    <React.Fragment>
+      <ResetCSS />
+      <Providers>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Providers>
+    </React.Fragment>
+  );
+};
 
-export default MyApp
+export default App;
