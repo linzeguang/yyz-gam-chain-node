@@ -20,7 +20,8 @@
     "typings.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "server.js"
+    "server.js",
+    "components/Modal"
   ],
   "exclude": ["node_modules"]
 }

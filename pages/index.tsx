@@ -5,15 +5,7 @@ import { useConnect } from "../sdk/web3React/hooks";
 const Home: React.FC = () => {
   const { connect } = useConnect();
 
-  return (
-    <div>
-      {connectors.map((connector, index) => (
-        <button key={index} onClick={() => connect(connector)}>
-          {connector.title}
-        </button>
-      ))}
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;

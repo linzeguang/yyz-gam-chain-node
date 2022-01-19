@@ -30,6 +30,7 @@ const ResetCSS = createGlobalStyle`
   body {
     line-height: 1;
     font-size: 16px;
+    background-color: #f2f3f5;
   }
   ol,
   ul {

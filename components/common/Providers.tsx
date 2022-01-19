@@ -1,6 +1,6 @@
 import React from "react";
 import { Web3ReactProvider } from "@web3-react/core";
-import { getLibrary } from "../sdk/web3React";
+import { getLibrary } from "../../sdk/web3React";
 
 const Providers: React.FC = ({ children }) => {
   return (

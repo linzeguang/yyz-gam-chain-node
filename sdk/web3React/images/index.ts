@@ -1,2 +1,2 @@
-export { ReactComponent as Metamask } from "./Metamask.svg";
-export { ReactComponent as WalletConnect } from "./WalletConnect.svg";
+export { default as Metamask } from "./Metamask.svg";
+export { default as WalletConnect } from "./WalletConnect.svg";
