@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useUpdateEffect } from "ahooks";
 import { formatEther } from "@ethersproject/units";
 import useNodeFactory from "./useNodeFactory";
+import { format } from "../../sdk/web3React";
 
 const defaultInfo = {
   onlineNodes: "--",
@@ -18,10 +19,10 @@ export default function useNodeInfo() {
     try {
       const _info = await fetchInfo();
       setInfo({
-        onlineNodes: _info.onlineNodes.toString(),
-        releaseNodes: _info.releaseNodes.toString(),
-        totalBalance: formatEther(_info.totalBalance),
-        totalNodes: _info.totalNodes.toString(),
+        onlineNodes: format(_info.onlineNodes.toString()),
+        releaseNodes: format(_info.releaseNodes.toString()),
+        totalBalance: format(formatEther(_info.totalBalance)),
+        totalNodes: format(_info.totalNodes.toString()),
       });
     } catch (error) {
       console.log("useNodeInfo: ", error);

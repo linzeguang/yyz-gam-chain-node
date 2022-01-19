@@ -29,7 +29,6 @@ export const LogoText = styled.div`
   margin-right: 30px;
   font-size: 28px;
   font-weight: bold;
-  color: #1e1e1e;
 `;
 
 export const Balance = styled.div`
@@ -44,7 +43,6 @@ export const Balance = styled.div`
 export const Unit = styled.span`
   margin-left: 8px;
   font-size: 20px;
-  color: #1e1e1e;
 `;
 
 export const WalletButton = styled.button`

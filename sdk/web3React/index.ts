@@ -1,4 +1,5 @@
 export { injected, walletConnect, ConnectorsByName } from "./utils/connector";
+export { format } from "./utils/format";
 export { getLibrary } from "./utils/getLibrary";
 export { getBalance } from "./utils/getBalance";
 export { setupNetwork } from "./utils/setupNetwork";

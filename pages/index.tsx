@@ -1,11 +1,13 @@
 import React from "react";
-import connectors from "../sdk/web3React/config/connectors";
-import { useConnect } from "../sdk/web3React/hooks";
+import { Container } from "../components/common/Container";
+import Info from "../components/Index/Info";
 
 const Home: React.FC = () => {
-  const { connect } = useConnect();
-
-  return <div></div>;
+  return (
+    <Container>
+      <Info />
+    </Container>
+  );
 };
 
 export default Home;

@@ -2,6 +2,8 @@ import { useCallback, useState } from "react";
 import { useUpdateEffect } from "ahooks";
 import { formatEther } from "@ethersproject/units";
 import useNodeFactory from "./useNodeFactory";
+import { BigNumber } from "bignumber.js";
+import { format } from "../../sdk/web3React";
 
 export default function useNodeCost() {
   const [nodeCost, setNodeCost] = useState("--");
@@ -10,7 +12,7 @@ export default function useNodeCost() {
   const fetch = useCallback(async () => {
     try {
       const _nodeCost = await fetchNodeCost();
-      setNodeCost(formatEther(_nodeCost));
+      setNodeCost(format(formatEther(_nodeCost)));
     } catch (error) {
       console.log("useNodeCost: ", error);
       setNodeCost("--");
