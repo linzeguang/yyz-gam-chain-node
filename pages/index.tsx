@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Info from "../components/Index/Info";
 import Nodes from "../components/Index/Nodes";
 import { IndexWrapper } from "../components/Index/styled";

@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { isAddress } from "@ethersproject/address";
 import {
@@ -40,22 +34,27 @@ import {
 import { Modal, ModalHandleProps } from "../Modal";
 import CreateContent from "./CreateContent";
 import NoData from "./NoData";
-import { useDebounce } from "ahooks";
+import { debounce } from "lodash";
 
 const Nodes: React.FC = () => {
   const { $t } = useI18n();
   const [search, setSearch] = useState("");
-  const debouncedSearch = useDebounce(search, { wait: 400 });
   const modalRef = useRef<ModalHandleProps>(null);
 
   const { account } = useAccount();
-  const { nodeId, fetchNodeId } = useNodeId();
-  const { nodeId: curNodeId, nodes, status, fetchNodes } = useNodes(nodeId);
-  const { release, fetchRelease } = useNodeRelease(account?.toString() || "");
+  const { nodeId, fetchNodeId, searchNodeId } = useNodeId();
+  const {
+    nodeId: curNodeId,
+    nodes,
+    status,
+    fetchNodes,
+    searchNodes,
+  } = useNodes(nodeId);
+  const { release, fetchRelease } = useNodeRelease(nodes.investor);
 
   const refresh = useCallback(() => {
-    fetchNodes(curNodeId, true);
-    curNodeId && curNodeId !== "--" && fetchRelease(curNodeId);
+    fetchNodes();
+    curNodeId && curNodeId !== "--" && fetchRelease();
   }, [curNodeId, fetchNodes, fetchRelease]);
 
   const { loading: withdrawMintLoading, fetchWithdrawMint } =
@@ -64,32 +63,48 @@ const Nodes: React.FC = () => {
     useWithdrawPledge(refresh);
   const { fetchLogout } = useLogout(refresh);
 
-  const isSelf = useMemo(() => {
-    if (nodes.investor === "--") return true;
-    return nodes.investor === account;
-  }, [account, nodes]);
-
-  // const handleSearch = useCallback(
-  //   async (even: React.KeyboardEvent<HTMLInputElement>) => {
-  //     const { keyCode } = even;
-  //     if (keyCode !== 13) return;
-  //     if (!search) {
-  //       fetchNodes(nodeId);
-  //       fetchRelease(nodeId);
-  //     } else {
-  //       if (!isAddress(search)) return toast.warn($t("error_address"));
-  //       const searchNid = await fetchNodeId(search);
-  //       console.log("searchNid: ", searchNid);
-  //       await fetchNodes(searchNid !== "--" ? searchNid : search);
-  //     }
-  //   },
-  //   [$t, fetchNodeId, fetchNodes, fetchRelease, nodeId, search]
-  // );
-
   const handerCreateSuccess = useCallback(() => {
     modalRef.current?.toggle();
-    account && fetchNodeId();
-  }, [account, fetchNodeId]);
+    fetchNodeId();
+  }, [fetchNodeId]);
+
+  const isSelf = useMemo(() => {
+    if (nodeId === "--") return true;
+    return nodes.investor === account;
+  }, [account, nodeId, nodes.investor]);
+
+  const renderButton = useCallback(() => {
+    if (status === 0)
+      return (
+        <Create onClick={() => modalRef.current?.toggle()}>
+          {$t("create")}
+        </Create>
+      );
+    if (status === 1)
+      return <Release onClick={fetchLogout}>{$t("release")}</Release>;
+    return null;
+  }, [$t, fetchLogout, status]);
+
+  const handleSearch = debounce((val: string) => {
+    setSearch(val);
+    if (!val) {
+      fetchNodeId();
+      fetchNodes();
+    } else {
+      if (!isAddress(val)) {
+        toast.warn($t("error_address"));
+      } else {
+        searchNodeId(val).then((searchNid) => {
+          console.log("searchNid: ", searchNid);
+          if (searchNid !== "--") {
+            searchNodes(searchNid);
+          } else {
+            searchNodes(val);
+          }
+        });
+      }
+    }
+  }, 400);
 
   return (
     <>
@@ -100,7 +115,7 @@ const Nodes: React.FC = () => {
             <Images.Search />
             <SearchInput
               placeholder={$t("search_placeholder")}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
             />
           </NodeSearch>
         </NodesHeader>
@@ -109,19 +124,9 @@ const Nodes: React.FC = () => {
           <AddressHeader>
             <NodesGrid>
               <Address>{$t("address")}:</Address>
-              <Address>
-                {nodes.investor !== "--" ? nodes.investor : account || "--"}
-              </Address>
+              <Address>{nodes.investor}</Address>
             </NodesGrid>
-            {account && isSelf ? (
-              status === 0 ? (
-                <Create onClick={() => modalRef.current?.toggle()}>
-                  {$t("create")}
-                </Create>
-              ) : status === 1 ? (
-                <Release onClick={fetchLogout}>{$t("release")}</Release>
-              ) : null
-            ) : null}
+            {isSelf && renderButton()}
           </AddressHeader>
           {search && status === 0 ? (
             <NoData />
@@ -129,7 +134,7 @@ const Nodes: React.FC = () => {
             <NodesContent>
               <NodesGrid>
                 <NodesLabel>{$t("node_id")}:</NodesLabel>
-                <NodesValue>{curNodeId || nodeId}</NodesValue>
+                <NodesValue>{curNodeId}</NodesValue>
               </NodesGrid>
               <NodesGrid>
                 <NodesLabel>{$t("node_status")}</NodesLabel>

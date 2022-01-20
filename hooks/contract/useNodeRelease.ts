@@ -10,30 +10,43 @@ const defalutRelease = {
   releaseTime: "--",
 };
 
-export default function useNodeRelease(nid: string) {
+export default function useNodeRelease(account: string) {
   const [release, setRelease] = useState(defalutRelease);
+  const [loading, setLoading] = useState(false);
   const { getReleaseInfo: fetchRelease } = useNodeFactory();
 
   const fetch = useCallback(
-    async (_nid: string) => {
+    async (_account: string) => {
+      setLoading(true);
       try {
-        const _release = await fetchRelease(_nid);
-        setRelease({
+        const _release = await fetchRelease(_account);
+        setLoading(false);
+        return {
           lockedAsset: format(formatEther(_release.lockedAsset)),
           pendingAsset: format(formatEther(_release.pendingAsset)),
           releaseTime: _release.releaseTime.toString(),
-        });
+        };
       } catch (error) {
         console.log("useNodeRelease: ", error);
-        setRelease(defalutRelease);
+        setLoading(false);
+        return defalutRelease;
       }
     },
     [fetchRelease]
   );
 
-  useUpdateEffect(() => {
-    fetch(nid);
-  }, [nid, fetch]);
+  const init = useCallback(async () => {
+    const releaseInfo = account && account !== "--" && (await fetch(account));
+    if (releaseInfo) {
+      setRelease(releaseInfo);
+    } else {
+      setRelease(defalutRelease);
+    }
+  }, [fetch, account]);
 
-  return { release, fetchRelease: fetch };
+  useUpdateEffect(() => {
+    init();
+  }, [init]);
+
+  return { loading, release, fetchRelease: init };
 }

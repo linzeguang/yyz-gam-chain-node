@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Container } from "../common/Container";
 
 export const IndexWrapper = styled(Container)`
-  padding: 30px 0;
+  padding: 30px 40px;
 `;
 
 export const Card = styled.div`

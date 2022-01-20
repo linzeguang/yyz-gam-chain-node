@@ -32,7 +32,7 @@ const Info: React.FC = () => {
         </InfoBox>
         <InfoBox flex>
           <Docs />
-          <InfoLabel docs>{$t("docs")}</InfoLabel>
+          <Unit>{$t("docs")}</Unit>
         </InfoBox>
       </InfoGrid>
       <InfoGrid>
