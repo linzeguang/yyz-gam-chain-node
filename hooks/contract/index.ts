@@ -4,3 +4,7 @@ export { default as useNodeInfo } from "./useNodeInfo";
 export { default as useNodeId } from "./useNodeId";
 export { default as useNodes } from "./useNodes";
 export { default as useNodeRelease } from "./useNodeRelease";
+export { default as useLogout } from "./useLogout";
+export { default as useRegister } from "./useRegister";
+export { default as useWithdrawPledge } from "./useWithdrawPledge";
+export { default as useWithdrawMint } from "./useWithdrawMint";

@@ -1,12 +1,14 @@
 import React from "react";
-import { Container } from "../components/common/Container";
 import Info from "../components/Index/Info";
+import Nodes from "../components/Index/Nodes";
+import { IndexWrapper } from "../components/Index/styled";
 
 const Home: React.FC = () => {
   return (
-    <Container>
+    <IndexWrapper>
       <Info />
-    </Container>
+      <Nodes />
+    </IndexWrapper>
   );
 };
 

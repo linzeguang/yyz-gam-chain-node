@@ -1,13 +1,11 @@
 import React, {
-  cloneElement,
   PropsWithChildren,
   useCallback,
   useImperativeHandle,
-  useMemo,
   useState,
 } from "react";
 import Dialog from "rc-dialog";
-import { ContentFunc, ModalHandleProps, ModalProps } from "./types";
+import { ModalHandleProps, ModalProps } from "./types";
 import { ModalTitle } from "./styled";
 
 // eslint-disable-next-line react/display-name
@@ -28,8 +26,8 @@ const Modal = React.forwardRef<ModalHandleProps, PropsWithChildren<ModalProps>>(
     return (
       <Dialog
         visible={visible}
-        mask={false}
         animation="zoom"
+        maskAnimation="fade"
         afterClose={afterClose}
         onClose={() => toggle()}
         destroyOnClose

@@ -10,6 +10,7 @@
   "contract_balance": "Contract Balance",
   "total_nodes": "Total Nodes",
   "online": "Online",
+  "offline": "Offline",
   "released": "Released",
   "docs": "Docs",
   "nodecost": "NodeCost",
@@ -36,6 +37,11 @@
   "withdraw_succ": "Withdraw success",
   "withdraw_err": "Withdraw error",
   "create_node": "Create Node",
-  "create_succ": "Create Succ",
-  "create_err": "Create error"
+  "create_succ": "Created successfully",
+  "create_err": "Failed to create",
+  "wrong_input": "wrong input",
+  "network": "Network anomalies, please try again later",
+  "release_succ": "Release successfully",
+  "error_-32000": "Insufficient funds for gas.",
+  "error_3": "execution reverted: The nid has been registered!"
 }

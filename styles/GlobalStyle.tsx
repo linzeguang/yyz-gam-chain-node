@@ -9,6 +9,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 28px;
     transition: 300ms;
   }
+  .rc-dialog-body {
+    padding: 42px 35px 35px;
+  }
 `;
 
 export default GlobalStyle;

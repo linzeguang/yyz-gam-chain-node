@@ -23,7 +23,6 @@ const Info: React.FC = () => {
   const { info } = useNodeInfo();
   const { balance } = useBalance(contractAddress);
 
-  console.log(info);
   return (
     <Card>
       <InfoGrid>
