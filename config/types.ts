@@ -50,7 +50,7 @@ export interface NodeContract extends Contract {
     nid: string,
     overrides?: PayableOverrides
   ) => Promise<Promise<ContractTransaction>>;
-  logout: () => Promise<any>;
+  logout: () => Promise<Promise<ContractTransaction>>;
   withdrawMint: () => Promise<Promise<ContractTransaction>>;
   withdrawPledge: () => Promise<Promise<ContractTransaction>>;
   releaseBlocks: () => Promise<BigNumber>;

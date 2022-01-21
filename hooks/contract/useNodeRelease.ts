@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { useUpdateEffect } from "ahooks";
+import { secondsToHours, secondsToMinutes } from "date-fns";
 import { formatEther } from "@ethersproject/units";
 import useNodeFactory from "./useNodeFactory";
 import { format } from "../../sdk/web3React";
@@ -21,10 +22,20 @@ export default function useNodeRelease(account: string) {
       try {
         const _release = await fetchRelease(_account);
         setLoading(false);
+        const day = Math.floor(
+          secondsToHours(_release.releaseTime.toNumber() * 3) / 24
+        );
+        const hours = Math.floor(
+          secondsToHours(_release.releaseTime.toNumber() * 3) % 24
+        );
+        const minutes = Math.floor(
+          secondsToMinutes(_release.releaseTime.toNumber() * 3) % 60
+        );
+
         return {
           lockedAsset: format(formatEther(_release.lockedAsset)),
           pendingAsset: format(formatEther(_release.pendingAsset)),
-          releaseTime: _release.releaseTime.toString(),
+          releaseTime: `~${day} days ${hours} h ${minutes} min`,
         };
       } catch (error) {
         console.log("useNodeRelease: ", error);

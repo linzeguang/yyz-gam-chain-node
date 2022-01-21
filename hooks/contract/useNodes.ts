@@ -52,19 +52,19 @@ export default function useNodes(nid: string) {
             balancePledgeDebt: "--",
             blockLastWithdraw: "--",
             blockOnline: _nodes.blockOnline.toString(),
-            blockOnlineTime: `${format(
-              _nodes.blockOnline.toString()
-            )} (~${formatData(
-              toDate(blockOnlineTime * 1000),
-              "yyyy.MM.dd HH:mm:ss"
-            )})`,
+            blockOnlineTime: _nodes.blockOnline.toNumber()
+              ? `(~${formatData(
+                  toDate(blockOnlineTime * 1000),
+                  "yyyy.MM.dd HH:mm:ss"
+                )})`
+              : "",
             blockRegister: _nodes.blockRegister.toString(),
-            blockRegisterTime: `${format(
-              _nodes.blockRegister.toString()
-            )} (~${formatData(
-              toDate(blockRegisterTime * 1000),
-              "yyyy.MM.dd HH:mm:ss"
-            )})`,
+            blockRegisterTime: _nodes.blockRegister.toNumber()
+              ? `(~${formatData(
+                  toDate(blockRegisterTime * 1000),
+                  "yyyy.MM.dd HH:mm:ss"
+                )})`
+              : "",
             totalMint: format(formatEther(_nodes.totalMint)),
             investor: _nodes.investor,
           },

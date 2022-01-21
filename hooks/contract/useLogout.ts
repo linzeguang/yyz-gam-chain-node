@@ -12,10 +12,13 @@ export default function useLogout(onSuccess?: () => void) {
   const fetchLogout = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await logout();
-      onSuccess && onSuccess();
-      setLoading(false);
-      toast.success($t("release_succ"));
+      const tx = await logout();
+      const receipt = await tx.wait();
+      if (receipt && receipt.status === 1) {
+        onSuccess && onSuccess();
+        setLoading(false);
+        toast.success($t("release_succ"));
+      }
     } catch (error) {
       setLoading(false);
       const errorMsg = getContractErrorMsg(error);

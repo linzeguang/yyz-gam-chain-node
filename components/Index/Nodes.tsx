@@ -66,7 +66,7 @@ const Nodes: React.FC = () => {
     useWithdrawMint(refresh);
   const { loading: withdrawPledgeLoading, fetchWithdrawPledge } =
     useWithdrawPledge(refresh);
-  const { fetchLogout } = useLogout(refresh);
+  const { loading: logoutLoading, fetchLogout } = useLogout(refresh);
 
   const handerCreateSuccess = useCallback(() => {
     modalRef.current?.toggle();
@@ -87,9 +87,17 @@ const Nodes: React.FC = () => {
         </Create>
       );
     if (status === 1)
-      return <Release onClick={fetchLogout}>{$t("release")}</Release>;
+      return (
+        <Release disabled={logoutLoading} onClick={fetchLogout}>
+          {logoutLoading ? (
+            <Images.RollingWhite width="20px" height="20px" />
+          ) : (
+            $t("release")
+          )}
+        </Release>
+      );
     return null;
-  }, [$t, fetchLogout, status]);
+  }, [$t, fetchLogout, status, logoutLoading]);
 
   const handleSearch = debounce((val: string) => {
     setSearch(val);
@@ -188,19 +196,50 @@ const Nodes: React.FC = () => {
               </NodesGrid>
               <NodesGrid>
                 <NodesLabel>{$t("block_online")}:</NodesLabel>
-                <NodesValue>
-                  {Number(nodes.blockOnline) > 0 ? (
-                    <Status code={1}>{$t("online")}</Status>
+                <NodesValue block={isMobile}>
+                  {isMobile ? (
+                    <>
+                      <NodesValue>
+                        {Number(nodes.blockOnline) > 0 ? (
+                          <Status code={1}>{$t("online")}</Status>
+                        ) : (
+                          <Status code={2}>{$t("offline")}</Status>
+                        )}
+                        &nbsp;
+                        {nodes.blockOnline}
+                        <Images.Tip />
+                      </NodesValue>
+                      {nodes.blockOnlineTime}
+                    </>
                   ) : (
-                    <Status code={2}>{$t("offline")}</Status>
+                    <>
+                      {Number(nodes.blockOnline) > 0 ? (
+                        <Status code={1}>{$t("online")}</Status>
+                      ) : (
+                        <Status code={2}>{$t("offline")}</Status>
+                      )}
+                      &nbsp;
+                      {nodes.blockOnline}
+                      &nbsp;
+                      {nodes.blockOnlineTime}
+                      <Images.Tip />
+                    </>
                   )}
-                  {nodes.blockOnlineTime}
-                  <Images.Tip />
                 </NodesValue>
               </NodesGrid>
               <NodesGrid>
                 <NodesLabel>{$t("block_register")}:</NodesLabel>
-                <NodesValue>{nodes.blockRegisterTime}</NodesValue>
+                <NodesValue block={isMobile}>
+                  {isMobile ? (
+                    <>
+                      {nodes.blockRegister}
+                      <br />
+                      {nodes.blockRegisterTime}
+                    </>
+                  ) : (
+                    `${nodes.blockRegister} ${nodes.blockRegisterTime}`
+                  )}
+                </NodesValue>
               </NodesGrid>
               <NodesGrid>
                 <NodesLabel>{$t("balance_pledge")}:</NodesLabel>

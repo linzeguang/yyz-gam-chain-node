@@ -278,6 +278,9 @@ export const Address = styled.div`
 `;
 
 export const Create = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 30px;
   padding: 0 16px;
   border-radius: 5px;
@@ -300,6 +303,9 @@ export const Create = styled.button`
 `;
 
 export const Release = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 30px;
   padding: 0 16px;
   border-radius: 5px;
@@ -309,7 +315,8 @@ export const Release = styled.button`
   transition: all 300ms;
   cursor: pointer;
   :hover,
-  :active {
+  :active,
+  :disabled {
     color: #fff;
     background-color: #db5656;
   }
@@ -344,13 +351,13 @@ export const NodesLabel = styled.div`
   }
 `;
 
-export const NodesValue = styled.div`
-  display: flex;
+export const NodesValue = styled.div<{ block?: boolean }>`
+  display: ${({ block }) => (block ? "block" : "flex")};
   align-items: center;
   font-size: 16px;
   svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     margin-left: 10px;
   }
   @media screen and (max-width: 768px) {
