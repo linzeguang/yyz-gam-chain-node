@@ -3,6 +3,9 @@ import { Container } from "../common/Container";
 
 export const IndexWrapper = styled(Container)`
   padding: 30px 40px;
+  @media screen and (max-width: 768px) {
+    padding: 15px 15px;
+  }
 `;
 
 export const Card = styled.div`
@@ -14,20 +17,44 @@ export const Card = styled.div`
   & + div {
     margin-top: 30px;
   }
+  @media screen and (max-width: 768px) {
+    padding: 15px;
+    & + div {
+      margin-top: 15px;
+    }
+  }
+`;
+
+export const H5Grid = styled.div`
+  display: grid;
+  grid-gap: 10px;
 `;
 
 // info
 export const ContractAddress = styled.div`
   font-size: 24px;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
-export const InfoBox = styled.div<{ flex?: boolean }>`
-  display: ${({ flex }) => (flex ? "flex" : "block")};
-  align-items: ${({ flex }) => (flex ? "center" : "flex-start")};
+export const InfoBox = styled.div<{ row?: boolean }>`
+  display: flex;
+  flex-direction: ${({ row }) => (row ? "row" : "column")};
+  align-items: ${({ row }) => (row ? "center" : "flex-start")};
+  justify-content: ${({ row }) => (row ? "flex-start" : "center")};
   padding: 20px 56px;
   border-radius: 5px;
   border: solid 1px #f4f4f5;
   background-color: #f7f8fa;
+
+  @media screen and (max-width: 1180px) {
+    padding: 12px 36px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 12px 15px;
+  }
 `;
 
 export const InfoGrid = styled.div<{ equal?: boolean }>`
@@ -41,6 +68,16 @@ export const InfoGrid = styled.div<{ equal?: boolean }>`
   & + ${InfoBox} {
     margin-top: 0;
   }
+
+  @media screen and (max-width: 768px) {
+    grid-gap: 10px;
+    grid-template-columns: ${({ equal }) =>
+      equal ? "repeat(3, 1fr)" : "repeat(2, 1fr)"};
+
+    & + div {
+      margin-top: 0px;
+    }
+  }
 `;
 
 export const InfoLabel = styled.div<{ docs?: boolean }>`
@@ -48,6 +85,9 @@ export const InfoLabel = styled.div<{ docs?: boolean }>`
   font-weight: ${({ docs }) => (docs ? "bold" : "normal")};
   margin-bottom: ${({ docs }) => (docs ? "0" : "18px")};
   margin-left: ${({ docs }) => (docs ? "18px" : "0")};
+  @media screen and (max-width: 768px) {
+    margin-bottom: ${({ docs }) => (docs ? "0" : "10px")};
+  }
 `;
 
 export const InfoValueWrapper = styled.div`
@@ -61,18 +101,35 @@ export const InfoValue = styled.div<{ small?: boolean }>`
   line-height: 0.9;
   font-weight: bold;
   color: #0269fb;
+
+  @media screen and (max-width: 1180px) {
+    font-size: ${({ small }) => (small ? "24px" : "36px")};
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: ${({ small }) => (small ? "20px" : "24px")};
+  }
 `;
 
 export const Unit = styled.div`
   margin-left: 12px;
   font-size: 30px;
   font-weight: bold;
+
+  @media screen and (max-width: 1180px) {
+    font-size: 16px;
+  }
 `;
 
 export const BlockTip = styled.div`
   margin-top: 16px;
   font-size: 16px;
   color: #bbb;
+  @media screen and (max-width: 768px) {
+    margin-top: 12px;
+    font-size: 12px;
+    /* white-space: nowrap; */
+  }
 `;
 
 // nodes
@@ -82,6 +139,12 @@ export const NodesHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
 `;
 
 export const NodesTitle = styled.div`
@@ -97,6 +160,14 @@ export const NodesTitle = styled.div`
     border-radius: 2px;
     background-color: #0269fb;
   }
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+    &::before {
+      height: 16px;
+      width: 4px;
+      margin-right: 10px;
+    }
+  }
 `;
 
 export const NodeSearch = styled.div`
@@ -109,11 +180,27 @@ export const NodeSearch = styled.div`
   border-radius: 21px;
   border: solid 1px #f4f4f5;
   background-color: #f7f8fa;
-  svg {
+  svg[data-type="search"] {
     position: absolute;
     top: 50%;
     left: 20px;
     transform: translateY(-50%);
+  }
+  svg[data-type="close"] {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    height: 38px;
+    margin-top: 10px;
+    border-radius: 5px;
   }
 `;
 
@@ -121,7 +208,7 @@ export const SearchInput = styled.input`
   height: 100%;
   width: 100%;
   padding-left: 50px;
-  padding-right: 20px;
+  padding-right: 40px;
   font-size: 16px;
   background-color: transparent;
   border: none;
@@ -136,6 +223,9 @@ export const NodesBox = styled.div`
   border-radius: 5px;
   border: solid 1px #f4f4f5;
   background-color: #f7f8fa;
+  @media screen and (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 export const AddressHeader = styled.div`
@@ -147,6 +237,10 @@ export const AddressHeader = styled.div`
   border-radius: 5px;
   border: solid 1px #f4f4f5;
   background-color: #fff;
+  @media screen and (max-width: 768px) {
+    height: 40px;
+    padding-right: 10px;
+  }
 `;
 
 export const NodesGrid = styled.div`
@@ -157,15 +251,35 @@ export const NodesGrid = styled.div`
     text-align: right;
     justify-content: flex-end;
   }
+  @media screen and (max-width: 1180px) {
+    grid-gap: 24px;
+    grid-template-columns: 120px 1fr;
+  }
+  @media screen and (max-width: 768px) {
+    grid-gap: 10px;
+    grid-template-columns: 90px 1fr;
+  }
 `;
 
 export const Address = styled.div`
   font-size: 24px;
+
+  @media screen and (max-width: 1180px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    svg {
+      margin: 0 4px;
+    }
+  }
 `;
 
 export const Create = styled.button`
-  width: 130px;
   height: 30px;
+  padding: 0 16px;
   border-radius: 5px;
   border: solid 1px #61a966;
   background-color: transparent;
@@ -177,11 +291,17 @@ export const Create = styled.button`
     color: #fff;
     background-color: #61a966;
   }
+
+  @media screen and (max-width: 768px) {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
 `;
 
 export const Release = styled.button`
-  width: 130px;
   height: 30px;
+  padding: 0 16px;
   border-radius: 5px;
   border: solid 1px #db5656;
   background-color: transparent;
@@ -193,6 +313,12 @@ export const Release = styled.button`
     color: #fff;
     background-color: #db5656;
   }
+
+  @media screen and (max-width: 768px) {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
 `;
 
 export const NodesContent = styled.div`
@@ -200,28 +326,53 @@ export const NodesContent = styled.div`
   ${NodesGrid} {
     padding: 10px 0;
   }
+  @media screen and (max-width: 768px) {
+    margin-top: 10px;
+
+    ${NodesGrid} {
+      padding: 6px 0;
+    }
+  }
 `;
 
 export const NodesLabel = styled.div`
   display: flex;
   align-items: center;
   font-size: 16px;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const NodesValue = styled.div`
   display: flex;
   align-items: center;
   font-size: 16px;
+  svg {
+    margin-left: 10px;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    svg {
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+    }
+  }
 `;
 
 export const Status = styled.button<{ code: number }>`
-  width: 84px;
   height: 22px;
+  padding: 0 20px;
   font-size: 14px;
   border-radius: 5px;
   border: none;
   background-color: ${({ code }) => (code === 1 ? "#defbe0" : "#fde4e4")};
   color: ${({ code }) => (code === 1 ? " #61a966" : "#db5656")};
+
+  @media screen and (max-width: 768px) {
+    padding: 0 12px;
+  }
 `;
 
 export const RepleaseContent = styled.div`
@@ -230,11 +381,18 @@ export const RepleaseContent = styled.div`
   ${NodesGrid} {
     padding: 10px 0;
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 10px 15px;
+    ${NodesGrid} {
+      padding: 6px 0;
+    }
+  }
 `;
 
 export const Withdraw = styled.button`
-  width: 84px;
   height: 22px;
+  padding: 0 20px;
   margin-left: 20px;
   font-size: 14px;
   border-radius: 5px;
@@ -258,6 +416,11 @@ export const Withdraw = styled.button`
       color: #fff;
       background-color: #0fa7ff;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 4px;
+    padding: 0 12px;
   }
 `;
 

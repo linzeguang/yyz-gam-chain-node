@@ -9,14 +9,10 @@ import "rc-dialog/assets/index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import "../i18n";
-import Head from "next/head";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <React.Fragment>
-      <Head>
-        <title>GAM Chain Node</title>
-      </Head>
       <ResetCSS />
       <GlobalStyle />
       <ToastContainer />

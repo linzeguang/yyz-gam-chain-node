@@ -5,6 +5,10 @@ export const HeaderWrapper = styled.header`
   height: 60px;
   background-color: #fff;
   box-shadow: 1.1px 3.8px 5px 0 rgba(0, 0, 0, 0.02);
+
+  @media screen and (max-width: 768px) {
+    height: 48px;
+  }
 `;
 
 export const HeaderContainer = styled(Container)`
@@ -22,6 +26,10 @@ export const HeaderBox = styled.div`
 export const LogoImage = styled.img`
   width: 58px;
   height: 30px;
+  @media screen and (max-width: 768px) {
+    width: 29px;
+    height: 15px;
+  }
 `;
 
 export const LogoText = styled.div`
@@ -29,6 +37,11 @@ export const LogoText = styled.div`
   margin-right: 30px;
   font-size: 28px;
   font-weight: bold;
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+    margin-left: 8px;
+    margin-right: 0px;
+  }
 `;
 
 export const Balance = styled.div`
@@ -38,11 +51,17 @@ export const Balance = styled.div`
   color: #f4b058;
   background-color: #fff5e8;
   border-radius: 5px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const Unit = styled.span`
   margin-left: 8px;
   font-size: 20px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const WalletButton = styled.button`
@@ -94,8 +113,14 @@ export const FooterText = styled.div`
   line-height: 60px;
   font-size: 16px;
   color: #fff;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const Main = styled.section`
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 60px - 60px);
+  @media screen and (max-width: 768px) {
+    min-height: calc(100vh - 48px - 60px);
+  }
 `;

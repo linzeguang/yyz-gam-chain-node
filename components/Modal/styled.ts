@@ -5,4 +5,8 @@ export const ModalTitle = styled.div`
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
 `;

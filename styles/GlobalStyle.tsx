@@ -12,6 +12,15 @@ const GlobalStyle = createGlobalStyle`
   .rc-dialog-body {
     padding: 42px 35px 35px;
   }
+
+  @media screen and (max-width: 768px) {
+    .rc-dialog {
+      width: calc(100vw - 30px);
+      .rc-dialog-body {
+        padding: 42px 15px 20px;
+      }
+    }
+  }
 `;
 
 export default GlobalStyle;

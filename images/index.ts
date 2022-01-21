@@ -5,3 +5,5 @@ export { default as Tip } from "./tip.svg";
 export { default as Account } from "./account.svg";
 export { default as RollingWhite } from "./rolling_white.svg";
 export { default as NoData } from "./no_data.svg";
+export { default as Close } from "./close.svg";
+export { default as Copy } from "./copy.svg";

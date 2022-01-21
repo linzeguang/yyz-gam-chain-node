@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { isAddress } from "@ethersproject/address";
+import { debounce } from "lodash";
 import {
   useLogout,
   useNodeId,
@@ -9,9 +11,12 @@ import {
   useWithdrawMint,
   useWithdrawPledge,
 } from "../../hooks/contract";
+import useDevice from "../../hooks/useDevice";
 import useI18n from "../../hooks/useI18n";
-import * as Images from "../../images";
 import { useAccount } from "../../sdk/web3React/hooks";
+import { substring } from "../../sdk/utils";
+import { Modal, ModalHandleProps } from "../Modal";
+import * as Images from "../../images";
 import {
   Address,
   AddressHeader,
@@ -31,16 +36,16 @@ import {
   Status,
   Withdraw,
 } from "./styled";
-import { Modal, ModalHandleProps } from "../Modal";
 import CreateContent from "./CreateContent";
 import NoData from "./NoData";
-import { debounce } from "lodash";
 
 const Nodes: React.FC = () => {
   const { $t } = useI18n();
   const [search, setSearch] = useState("");
   const modalRef = useRef<ModalHandleProps>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
+  const { isMobile } = useDevice();
   const { account } = useAccount();
   const { nodeId, fetchNodeId, searchNodeId } = useNodeId();
   const {
@@ -69,6 +74,7 @@ const Nodes: React.FC = () => {
   }, [fetchNodeId]);
 
   const isSelf = useMemo(() => {
+    if (!account) return false;
     if (nodeId === "--") return true;
     return nodes.investor === account;
   }, [account, nodeId, nodes.investor]);
@@ -104,7 +110,7 @@ const Nodes: React.FC = () => {
         });
       }
     }
-  }, 400);
+  }, 200);
 
   return (
     <>
@@ -112,11 +118,22 @@ const Nodes: React.FC = () => {
         <NodesHeader>
           <NodesTitle>{$t("node_info")}</NodesTitle>
           <NodeSearch>
-            <Images.Search />
+            <Images.Search data-type="search" />
             <SearchInput
+              ref={searchRef}
               placeholder={$t("search_placeholder")}
               onChange={(e) => handleSearch(e.target.value)}
             />
+            {search && (
+              <Images.Close
+                data-type="close"
+                onClick={() => {
+                  if (searchRef.current) searchRef.current.value = "";
+                  setSearch("");
+                  handleSearch("");
+                }}
+              />
+            )}
           </NodeSearch>
         </NodesHeader>
 
@@ -124,7 +141,17 @@ const Nodes: React.FC = () => {
           <AddressHeader>
             <NodesGrid>
               <Address>{$t("address")}:</Address>
-              <Address>{nodes.investor}</Address>
+              <Address>
+                {isMobile ? substring(nodes.investor) : nodes.investor}
+                {isMobile && nodes.investor !== "--" && (
+                  <CopyToClipboard
+                    text={nodes.investor}
+                    onCopy={() => toast.success($t("copy_succ"))}
+                  >
+                    <Images.Copy />
+                  </CopyToClipboard>
+                )}
+              </Address>
             </NodesGrid>
             {isSelf && renderButton()}
           </AddressHeader>
@@ -134,7 +161,17 @@ const Nodes: React.FC = () => {
             <NodesContent>
               <NodesGrid>
                 <NodesLabel>{$t("node_id")}:</NodesLabel>
-                <NodesValue>{curNodeId}</NodesValue>
+                <NodesValue>
+                  {isMobile ? substring(curNodeId) : curNodeId}
+                  {isMobile && curNodeId && curNodeId !== "--" && (
+                    <CopyToClipboard
+                      text={curNodeId}
+                      onCopy={() => toast.success($t("copy_succ"))}
+                    >
+                      <Images.Copy />
+                    </CopyToClipboard>
+                  )}
+                </NodesValue>
               </NodesGrid>
               <NodesGrid>
                 <NodesLabel>{$t("node_status")}</NodesLabel>
@@ -146,7 +183,7 @@ const Nodes: React.FC = () => {
                       {$t(status === 1 ? "valid" : "release")}
                     </Status>
                   )}
-                  <Images.Tip style={{ marginLeft: 10 }} />
+                  <Images.Tip />
                 </NodesValue>
               </NodesGrid>
               <NodesGrid>
@@ -157,7 +194,7 @@ const Nodes: React.FC = () => {
                   ) : (
                     <Status code={2}>{$t("offline")}</Status>
                   )}
-                  <Images.Tip style={{ marginLeft: 10 }} />
+                  <Images.Tip />
                 </NodesValue>
               </NodesGrid>
               <NodesGrid>

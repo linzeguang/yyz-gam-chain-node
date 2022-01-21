@@ -7,7 +7,7 @@ export default function useBalance(address: string) {
 
   const fetch = useCallback(() => {
     getBalance(address).then((balance: any) => {
-      setBalance(format(formatEther(balance), 6));
+      balance && setBalance(format(formatEther(balance), 6));
     });
   }, [address]);
 

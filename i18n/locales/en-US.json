@@ -42,6 +42,7 @@
   "wrong_input": "wrong input",
   "network": "Network anomalies, please try again later",
   "release_succ": "Release successfully",
+  "copy_succ": "Copy successfully",
   "error_-32000": "Insufficient funds for gas.",
   "error_3": "execution reverted: The nid has been registered!"
 }
