@@ -1,9 +1,9 @@
 import { useCallback, useState, useEffect } from "react";
+import { toDate, format as formatData } from "date-fns";
 import { formatEther } from "@ethersproject/units";
 import useNodeFactory from "./useNodeFactory";
-import { format } from "../../sdk/web3React";
+import { format, getBlock2Timestamp } from "../../sdk/web3React";
 import { initNodeId } from ".";
-import { useDebounceFn } from "ahooks";
 
 const defaultNodes = {
   balanceMint: "--",
@@ -11,7 +11,9 @@ const defaultNodes = {
   balancePledgeDebt: "--",
   blockLastWithdraw: "--",
   blockOnline: "--",
+  blockOnlineTime: "--",
   blockRegister: "--",
+  blockRegisterTime: "--",
   totalMint: "--",
   investor: "--",
 };
@@ -36,6 +38,13 @@ export default function useNodes(nid: string) {
             status: 0,
             nodeId: "",
           };
+        const blockRegisterTime = await getBlock2Timestamp(
+          _nodes.blockRegister.toNumber()
+        );
+        const blockOnlineTime = await getBlock2Timestamp(
+          _nodes.blockOnline.toNumber()
+        );
+
         return {
           nodes: {
             balanceMint: format(formatEther(_nodes.balanceMint)),
@@ -43,7 +52,19 @@ export default function useNodes(nid: string) {
             balancePledgeDebt: "--",
             blockLastWithdraw: "--",
             blockOnline: _nodes.blockOnline.toString(),
-            blockRegister: format(_nodes.blockRegister.toString()),
+            blockOnlineTime: `${format(
+              _nodes.blockOnline.toString()
+            )} (~${formatData(
+              toDate(blockOnlineTime * 1000),
+              "yyyy.MM.dd HH:mm:ss"
+            )})`,
+            blockRegister: _nodes.blockRegister.toString(),
+            blockRegisterTime: `${format(
+              _nodes.blockRegister.toString()
+            )} (~${formatData(
+              toDate(blockRegisterTime * 1000),
+              "yyyy.MM.dd HH:mm:ss"
+            )})`,
             totalMint: format(formatEther(_nodes.totalMint)),
             investor: _nodes.investor,
           },

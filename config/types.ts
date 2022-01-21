@@ -53,6 +53,7 @@ export interface NodeContract extends Contract {
   logout: () => Promise<any>;
   withdrawMint: () => Promise<Promise<ContractTransaction>>;
   withdrawPledge: () => Promise<Promise<ContractTransaction>>;
+  releaseBlocks: () => Promise<BigNumber>;
 }
 
 export interface Overrides {

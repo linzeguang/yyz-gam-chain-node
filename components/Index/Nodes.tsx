@@ -194,12 +194,13 @@ const Nodes: React.FC = () => {
                   ) : (
                     <Status code={2}>{$t("offline")}</Status>
                   )}
+                  {nodes.blockOnlineTime}
                   <Images.Tip />
                 </NodesValue>
               </NodesGrid>
               <NodesGrid>
                 <NodesLabel>{$t("block_register")}:</NodesLabel>
-                <NodesValue>{nodes.blockRegister}</NodesValue>
+                <NodesValue>{nodes.blockRegisterTime}</NodesValue>
               </NodesGrid>
               <NodesGrid>
                 <NodesLabel>{$t("balance_pledge")}:</NodesLabel>

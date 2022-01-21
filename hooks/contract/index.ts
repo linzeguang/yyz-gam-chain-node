@@ -8,3 +8,4 @@ export { default as useLogout } from "./useLogout";
 export { default as useRegister } from "./useRegister";
 export { default as useWithdrawPledge } from "./useWithdrawPledge";
 export { default as useWithdrawMint } from "./useWithdrawMint";
+export { default as useReleaseBlocks } from "./useReleaseBlocks";

@@ -349,10 +349,13 @@ export const NodesValue = styled.div`
   align-items: center;
   font-size: 16px;
   svg {
+    width: 24px;
+    height: 24px;
     margin-left: 10px;
   }
   @media screen and (max-width: 768px) {
     font-size: 14px;
+    line-height: 1.2;
     svg {
       width: 16px;
       height: 16px;

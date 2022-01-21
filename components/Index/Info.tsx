@@ -1,7 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import { getNodeAddress } from "../../config/utils";
-import { useNodeCost, useNodeInfo } from "../../hooks/contract";
+import {
+  useNodeCost,
+  useNodeInfo,
+  useReleaseBlocks,
+} from "../../hooks/contract";
 import useBalance from "../../hooks/useBalance";
 import useDevice from "../../hooks/useDevice";
 import useI18n from "../../hooks/useI18n";
@@ -24,6 +28,7 @@ const Info: React.FC = () => {
   const { isMobile } = useDevice();
   const { $t } = useI18n();
   const { nodeCost } = useNodeCost();
+  const { releaseBlocks, releaseTimes } = useReleaseBlocks();
   const { info } = useNodeInfo();
   const { balance } = useBalance(contractAddress);
 
@@ -79,7 +84,7 @@ const Info: React.FC = () => {
             <InfoBox>
               <InfoLabel>{$t("releaseblocks")}</InfoLabel>
               <InfoValueWrapper>
-                <InfoValue small>{info.releaseNodes}</InfoValue>
+                <InfoValue small>{releaseBlocks}</InfoValue>
                 <Unit>Blocks</Unit>
               </InfoValueWrapper>
               <BlockTip>~180 days 12 h 50 min</BlockTip>
@@ -132,10 +137,10 @@ const Info: React.FC = () => {
             <InfoBox>
               <InfoLabel>{$t("releaseblocks")}</InfoLabel>
               <InfoValueWrapper>
-                <InfoValue small>{info.releaseNodes}</InfoValue>
+                <InfoValue small>{releaseBlocks}</InfoValue>
                 <Unit>Blocks</Unit>
               </InfoValueWrapper>
-              <BlockTip>~180 days 12 h 50 min</BlockTip>
+              <BlockTip>{releaseTimes}</BlockTip>
             </InfoBox>
           </InfoGrid>
         </>
