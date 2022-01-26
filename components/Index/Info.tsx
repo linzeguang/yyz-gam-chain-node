@@ -5,8 +5,8 @@ import {
   useNodeCost,
   useNodeInfo,
   useReleaseBlocks,
+  useWeb3Contract,
 } from "../../hooks/contract";
-import useBalance from "../../hooks/useBalance";
 import useDevice from "../../hooks/useDevice";
 import useI18n from "../../hooks/useI18n";
 import * as Images from "../../images";
@@ -30,7 +30,7 @@ const Info: React.FC = () => {
   const { nodeCost } = useNodeCost();
   const { releaseBlocks, releaseTimes } = useReleaseBlocks();
   const { info } = useNodeInfo();
-  const { balance } = useBalance(contractAddress);
+  const { contractBalance } = useWeb3Contract();
 
   return (
     <Card>
@@ -43,7 +43,7 @@ const Info: React.FC = () => {
           <InfoBox>
             <InfoLabel>{$t("contract_balance")}</InfoLabel>
             <InfoValueWrapper>
-              <InfoValue>{balance || "--"}</InfoValue>
+              <InfoValue>{contractBalance || "--"}</InfoValue>
               <Unit>GAM</Unit>
             </InfoValueWrapper>
           </InfoBox>
@@ -107,7 +107,7 @@ const Info: React.FC = () => {
             <InfoBox>
               <InfoLabel>{$t("contract_balance")}</InfoLabel>
               <InfoValueWrapper>
-                <InfoValue>{balance || "--"}</InfoValue>
+                <InfoValue>{contractBalance || "--"}</InfoValue>
                 <Unit>GAM</Unit>
               </InfoValueWrapper>
             </InfoBox>

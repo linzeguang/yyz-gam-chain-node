@@ -9,3 +9,4 @@ export { default as useRegister } from "./useRegister";
 export { default as useWithdrawPledge } from "./useWithdrawPledge";
 export { default as useWithdrawMint } from "./useWithdrawMint";
 export { default as useReleaseBlocks } from "./useReleaseBlocks";
+export { default as useWeb3Contract } from "./useWeb3Contract";
