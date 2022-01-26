@@ -34,6 +34,7 @@ import {
   RepleaseContent,
   SearchInput,
   Status,
+  Text,
   Withdraw,
 } from "./styled";
 import CreateContent from "./CreateContent";
@@ -167,6 +168,7 @@ const Nodes: React.FC = () => {
             <NoData />
           ) : (
             <NodesContent>
+              {/* node_id */}
               <NodesGrid>
                 <NodesLabel>{$t("node_id")}:</NodesLabel>
                 <NodesValue>
@@ -181,6 +183,7 @@ const Nodes: React.FC = () => {
                   )}
                 </NodesValue>
               </NodesGrid>
+              {/* node_status */}
               <NodesGrid>
                 <NodesLabel>{$t("node_status")}</NodesLabel>
                 <NodesValue>
@@ -191,9 +194,10 @@ const Nodes: React.FC = () => {
                       {$t(status === 1 ? "valid" : "release")}
                     </Status>
                   )}
-                  <Images.Tip />
+                  <Images.Tip data-type="tip" />
                 </NodesValue>
               </NodesGrid>
+              {/* block_online */}
               <NodesGrid>
                 <NodesLabel>{$t("block_online")}:</NodesLabel>
                 <NodesValue block={isMobile}>
@@ -205,11 +209,14 @@ const Nodes: React.FC = () => {
                         ) : (
                           <Status code={2}>{$t("offline")}</Status>
                         )}
-                        &nbsp;
-                        {nodes.blockOnline}
-                        <Images.Tip />
+                        {nodes.blockOnline !== "0" && (
+                          <Text>{nodes.blockOnline}</Text>
+                        )}
+                        <Images.Tip data-type="tip" />
                       </NodesValue>
-                      {nodes.blockOnlineTime}
+                      {nodes.blockOnlineTime && (
+                        <Text>{nodes.blockOnlineTime}</Text>
+                      )}
                     </>
                   ) : (
                     <>
@@ -218,11 +225,13 @@ const Nodes: React.FC = () => {
                       ) : (
                         <Status code={2}>{$t("offline")}</Status>
                       )}
-                      &nbsp;
-                      {nodes.blockOnline}
-                      &nbsp;
-                      {nodes.blockOnlineTime}
-                      <Images.Tip />
+                      {nodes.blockOnline !== "0" && (
+                        <Text>{nodes.blockOnline}</Text>
+                      )}
+                      {nodes.blockOnlineTime && (
+                        <Text>{nodes.blockOnlineTime}</Text>
+                      )}
+                      <Images.Tip data-type="tip" />
                     </>
                   )}
                 </NodesValue>

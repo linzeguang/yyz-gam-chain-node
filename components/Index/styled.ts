@@ -351,6 +351,14 @@ export const NodesLabel = styled.div`
   }
 `;
 
+export const Text = styled.span`
+  display: inline-block;
+  margin-left: 10px;
+  @media screen and (max-width: 768px) {
+    margin-left: 4px;
+  }
+`;
+
 export const NodesValue = styled.div<{ block?: boolean }>`
   display: ${({ block }) => (block ? "block" : "flex")};
   align-items: center;
@@ -358,7 +366,9 @@ export const NodesValue = styled.div<{ block?: boolean }>`
   svg {
     width: 20px;
     height: 20px;
-    margin-left: 10px;
+    &[data-type="tip"] {
+      margin-left: 10px;
+    }
   }
   @media screen and (max-width: 768px) {
     font-size: 14px;
@@ -366,7 +376,9 @@ export const NodesValue = styled.div<{ block?: boolean }>`
     svg {
       width: 16px;
       height: 16px;
-      margin-left: 4px;
+      &[data-type="tip"] {
+        margin-left: 4px;
+      }
     }
   }
 `;
@@ -409,6 +421,9 @@ export const Withdraw = styled.button`
   background-color: transparent;
   transition: all 300ms;
   cursor: pointer;
+  svg {
+    margin: 0;
+  }
   &[data-type="pending"] {
     color: #fb9e26;
     border: 1px solid #fb9e26;
