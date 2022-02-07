@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     <FooterWrapper>
       <Container>
         <FooterText>
-          ©2022 GAM Chain Association, all rights reserved.
+          ©2022 Game Chain Association, all rights reserved.
         </FooterText>
       </Container>
     </FooterWrapper>
